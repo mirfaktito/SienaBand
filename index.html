@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/jpeg" href="https://scontent.fjog1-1.fna.fbcdn.net/v/t51.82787-15/686511350_18405367879177561_2411801908026850926_n.jpg?stp=dst-jpegr_tt6&_nc_cat=107&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeFR7_Owum5qlRWMhE1qzj1kWQgzP36jY-1ZCDM_fqNj7Q4TL3NY9nnZOOuWTLOFZWiv0eX6LIKRzSUyio1guE1S&_nc_ohc=M_8O70UmiMMQ7kNvwEVBOPc&_nc_oc=Adpatg0EWcwyqy0B_aTOnrqxysQftdxWS8KXvy4ip0LEgFNU1nno9r2jpe67E6KFoeo&_nc_zt=23&se=-1&_nc_ht=scontent.fjog1-1.fna&_nc_gid=XQxh7lW39cw7MFIHaHgjrg&_nc_ss=7b2a8&oh=00_Af6XSDF7c5zQWyDhJFw9GVd-EMZPs-HBIwDEChPyAQczTQ&oe=6A109280">
 
 <style>
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -907,6 +908,43 @@
       cursor: default !important;
     }
   }
+
+  /* Tombol Musik Melayang di Pojok Kiri Bawah */
+  .music-btn {
+    position: fixed;
+    bottom: 2rem;
+    left: 2rem;
+    z-index: 999;
+    width: 46px;
+    height: 46px;
+    background: var(--dark-card);
+    border: 1px solid var(--gold);
+    border-radius: 50%;
+    color: var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  }
+
+  .music-btn:hover {
+    background: var(--gold);
+    color: var(--dark);
+    transform: scale(1.05);
+  }
+
+  /* Efek berputar lambat saat musik menyala */
+  .music-btn.playing {
+    animation: pulseRotate 3s linear infinite;
+  }
+
+  @keyframes pulseRotate {
+    0% { transform: rotate(0deg); border-color: var(--gold); }
+    50% { border-color: var(--gold-light); }
+    100% { transform: rotate(360deg); border-color: var(--gold); }
+  }
 </style>
 </head>
 <body>
@@ -916,6 +954,15 @@
 <!-- Custom cursor -->
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursorRing"></div>
+
+<!-- Background Music -->
+<audio id="bgMusic" loop>
+  <source src="Gege Grisel - Layakkah Ku Dicintai.mp3" type="audio/mpeg">
+  Browser Anda tidak mendukung elemen audio.
+</audio>
+<button id="musicToggle" class="music-btn" title="Play/Pause Music">
+  <span class="music-icon">🎵</span>
+</button>
 
 <!-- NAV -->
 <nav id="mainNav">
@@ -1288,6 +1335,46 @@
     });
   }, { threshold: 0.12 });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  
+  // Musik latar belakang
+  const bgMusic = document.getElementById('bgMusic');
+  const musicToggle = document.getElementById('musicToggle');
+  const musicIcon = musicToggle.querySelector('.music-icon');
+
+  // SET VOLUME DI SINI
+  bgMusic.volume = 0.05;
+  // FORMAT PENGULANGAN OTOMATIS (Looping)
+  bgMusic.loop = true;
+
+  // Fungsi untuk menyalakan/mematikan musik lewat tombol
+  musicToggle.addEventListener('click', (e) => {
+    e.stopPropagation(); // Mencegah bentrok dengan klik dokumen
+    if (bgMusic.paused) {
+      playTheMusic();
+    } else {
+      pauseTheMusic();
+    }
+  });
+
+  function playTheMusic() {
+    bgMusic.play();
+    musicIcon.textContent = '🔊'; // Ganti ikon jadi speaker aktif
+    musicToggle.classList.add('playing');
+  }
+
+  function pauseTheMusic() {
+    bgMusic.pause();
+    musicIcon.textContent = '🎵'; // Ganti ikon jadi not balok kembali
+    musicToggle.classList.remove('playing');
+  }
+
+  // Fitur Pintar: Musik otomatis berputar saat user pertama kali klik di mana saja di dalam web
+  document.addEventListener('click', () => {
+    if (bgMusic.paused && !musicToggle.classList.contains('playing')) {
+      playTheMusic();
+    }
+  }, { once: true });
 </script>
 </body>
 </html>
