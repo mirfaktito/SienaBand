@@ -842,16 +842,70 @@
   .reveal-delay-3 { transition-delay: 0.35s; }
 
   @media (max-width: 900px) {
+    /* Navigasi Global */
     nav { padding: 1.2rem 1.5rem; }
     .nav-links { display: none; }
+    
+    /* Pengaturan Padding Section Universal di HP */
     section { padding: 5rem 1.5rem; }
+    #contact { padding: 5rem 1.5rem; } /* Menggantikan inline style yang dihapus */
+    .divider { padding: 0 1.5rem; }
+    
+    /* HERO SECTION */
+    .hero-title { font-size: 3.5rem; }
+    .hero-cta-wrap { 
+      flex-direction: column; 
+      gap: 1rem; 
+      width: 100%; 
+      max-width: 280px; 
+      margin: 0 auto; 
+    }
+    .hero-cta-wrap .btn-primary, 
+    .hero-cta-wrap .btn-outline { 
+      width: 100%; 
+      text-align: center; 
+      padding: 1rem; 
+    }
+
+    /* ABOUT SECTION */
     .about { grid-template-columns: 1fr; gap: 3rem; }
-    .stats-bar { grid-template-columns: repeat(2,1fr); }
-    .stat-item { border-right: none; border-bottom: 1px solid rgba(201,169,110,0.1); }
+    .about-year-badge { right: 0; bottom: 0; } /* Menghindari badge keluar layar */
+    
+    /* STATS BAR */
+    .stats-bar { grid-template-columns: repeat(2, 1fr); padding: 2.5rem 1.5rem; }
+    .stat-item { border-right: none; border-bottom: 1px solid rgba(201,169,110,0.1); padding: 1rem; }
     .stat-item:nth-child(odd) { border-right: 1px solid rgba(201,169,110,0.1); }
-    footer { grid-template-columns: 1fr; gap: 2rem; }
-    .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; }
+    .stat-item:nth-shrink(3), .stat-item:nth-child(4) { border-bottom: none; }
+    
+    /* PERFORMANCE / VIDEO SECTION */
     .perf-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    .perf-header .btn-outline { width: 100%; text-align: center; }
+    .video-label { flex-direction: column; align-items: flex-start; gap: 1rem; padding: 1.2rem 1.5rem; }
+    .video-badge { align-self: flex-start; }
+    
+    /* PRICING GRID (Solusi Utama Masalah Pecah) */
+    .pricing-grid { 
+      grid-template-columns: 1fr; /* Mengubah 3 kolom menjadi 1 kolom vertikal */
+      gap: 2rem; 
+    }
+    .price-card { padding: 2.5rem 1.5rem; }
+    
+    /* FOOTER */
+    footer { grid-template-columns: 1fr; gap: 2rem; padding: 4rem 1.5rem; }
+    .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; padding: 1.5rem; }
+  }
+
+  @media (max-width: 768px) {
+    /* Menargetkan class asli sesuai HTML Anda */
+    .cursor, 
+    .cursor-ring {
+      display: none !important;
+    }
+
+    /* Mengembalikan kursor bawaan HP ke normal */
+    body {
+      cursor: default !important;
+    }
   }
 </style>
 </head>
@@ -1124,7 +1178,7 @@
 </div>
 
 <!-- FOLLOW / SOCIAL -->
-<section id="contact" style="padding: 7rem 4rem; background: var(--dark-surface);">
+<section id="contact" style="background: var(--dark-surface);">
   <div class="follow-section">
     <p class="section-eyebrow reveal">Ikuti Kami</p>
     <h2 class="section-title reveal reveal-delay-1">Tetap Terhubung <em>Bersama Kami</em></h2>
