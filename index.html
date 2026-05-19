@@ -681,8 +681,9 @@
   .pricing-inner { max-width: 1300px; margin: 0 auto; }
   .pricing-header { text-align: center; margin-bottom: 5rem; }
   .pricing-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Membuat baris yang tidak penuh otomatis ke tengah */
     gap: 1.5px;
     background: rgba(201,169,110,0.12);
     border: 1px solid rgba(201,169,110,0.12);
@@ -692,6 +693,10 @@
     padding: 3rem 2.5rem;
     position: relative;
     transition: background 0.4s;
+    
+    /* Tambahkan 2 baris ini untuk mengatur proporsi layout flex */
+    flex: 1 1 300px;
+    max-width: calc(33.33% - 1px);
   }
   .price-card:hover { background: #27211a; }
   .price-card.featured {
@@ -886,10 +891,13 @@
     
     /* PRICING GRID (Solusi Utama Masalah Pecah) */
     .pricing-grid { 
-      grid-template-columns: 1fr; /* Mengubah 3 kolom menjadi 1 kolom vertikal */
+      flex-direction: column; /* Menumpuk ke bawah di HP */
       gap: 2rem; 
     }
-    .price-card { padding: 2.5rem 1.5rem; }
+    .price-card { 
+      max-width: 100%; /* Memenuhi lebar layar HP */
+      padding: 2.5rem 1.5rem; 
+    }
     
     /* FOOTER */
     footer { grid-template-columns: 1fr; gap: 2rem; padding: 4rem 1.5rem; }
@@ -1150,66 +1158,85 @@
     </div>
     <div class="pricing-grid">
  
-      <!-- BASIC -->
       <div class="price-card reveal">
         <p class="price-tier">Paket 01</p>
-        <h3 class="price-name">Basic</h3>
-        <p class="price-personel">2 – 3 Personel</p>
+        <h3 class="price-name">Duo</h3>
+        <p class="price-personel">2 Personel</p>
         <div class="price-divider"></div>
         <div class="price-duration">
           <div class="price-duration-icon">
             <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
           </div>
-          <span class="price-duration-text">Durasi <strong>2 – 3 jam</strong> penampilan</span>
+          <span class="price-duration-text">Durasi penampilan <strong>fleksibel</strong></span>
         </div>
         <ul class="price-features">
-          <li>Gitaris + Vokalis profesional</li>
-          <li>Sound system sederhana untuk acara kecil</li> 
-          <li>Playlist sesuai permintaan klien</li>
+          <li>Vokalis Utama profesional</li>
+          <li>Gitaris atau Keyboardist</li>
+          <li>Sangat cocok untuk acara intim / kecil</li>
+          <li>Custom playlist sesuai permintaan</li>
         </ul>
-        <a href="https://api.whatsapp.com/send?phone=6285864479317&text=Hai!%20Saya%20ingin%20menanyakan%20Paket%20Basic%20Siena%20Entertainment" target="_blank" class="price-cta">Tanya Harga</a>
+        <a href="https://api.whatsapp.com/send?phone=6285864479317&text=Hai!%20Saya%20ingin%20menanyakan%20Paket%20Duo%20Siena%20Entertainment" target="_blank" class="price-cta">Tanya Harga</a>
       </div>
  
-      <!-- STANDARD (FEATURED) -->
-      <div class="price-card featured reveal reveal-delay-1">
-        <div class="price-badge">Paling Populer</div>
+      <div class="price-card reveal reveal-delay-1">
         <p class="price-tier">Paket 02</p>
-        <h3 class="price-name">Standard</h3>
-        <p class="price-personel">3 – 4 Personel</p>
+        <h3 class="price-name">Trio</h3>
+        <p class="price-personel">3 Personel</p>
         <div class="price-divider"></div>
         <div class="price-duration">
           <div class="price-duration-icon">
             <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
           </div>
-          <span class="price-duration-text">Durasi <strong>3 – 4 jam</strong> penampilan</span>
+          <span class="price-duration-text">Durasi penampilan <strong>standar</strong></span>
         </div>
         <ul class="price-features">
-          <li>Gitaris, Keyboardist & Vokalis</li>
-          <li>Sound system berkualitas untuk acara medium</li>
+          <li>Vokalis Utama berkarakter</li>
+          <li>Gitaris &amp; Keyboardist</li>
+          <li>Aransemen musik lebih penuh &amp; hidup</li>
           <li>Custom playlist &amp; request lagu</li>
         </ul>
-        <a href="https://api.whatsapp.com/send?phone=6285864479317&text=Hai!%20Saya%20ingin%20menanyakan%20Paket%20Standard%20Siena%20Entertainment" target="_blank" class="price-cta">Tanya Harga</a>
+        <a href="https://api.whatsapp.com/send?phone=6285864479317&text=Hai!%20Saya%20ingin%20menanyakan%20Paket%20Trio%20Siena%20Entertainment" target="_blank" class="price-cta">Tanya Harga</a>
       </div>
  
-      <!-- PREMIUM -->
-      <div class="price-card reveal reveal-delay-2">
+      <div class="price-card featured reveal reveal-delay-2">
+        <div class="price-badge">Paling Populer</div>
         <p class="price-tier">Paket 03</p>
-        <h3 class="price-name">Premium</h3>
-        <p class="price-personel">4 – 5 Personel</p>
+        <h3 class="price-name">Mini Band</h3>
+        <p class="price-personel">4 Personel</p>
         <div class="price-divider"></div>
         <div class="price-duration">
           <div class="price-duration-icon">
             <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
           </div>
-          <span class="price-duration-text">Durasi <strong>4 – 5 jam</strong> penampilan</span>
+          <span class="price-duration-text">Penampilan **energetik &amp; intim**</span>
         </div>
         <ul class="price-features">
-          <li>Gitaris, Keyboardist, Vokalis, Bassist &amp; Drummer</li>
-          <li>Full sound system profesional</li>
-          <li>Penyesuaian playlist lengkap</li>
-          <li class="optional">Tambahan lighting <em>(opsional)</em></li>
+          <li>Vokalis Utama profesional</li>
+          <li>Gitaris &amp; Keyboardist</li>
+          <li>Drummer (Ketukan penuh)</li>
+          <li>Cocok untuk medium wedding / event</li>
         </ul>
-        <a href="https://api.whatsapp.com/send?phone=6285864479317&text=Hai!%20Saya%20ingin%20menanyakan%20Paket%20Premium%20Siena%20Entertainment" target="_blank" class="price-cta">Tanya Harga</a>
+        <a href="https://api.whatsapp.com/send?phone=6285864479317&text=Hai!%20Saya%20ingin%20menanyakan%20Paket%20Mini%20Band%20Siena%20Entertainment" target="_blank" class="price-cta">Tanya Harga</a>
+      </div>
+
+      <div class="price-card reveal reveal-delay-3">
+        <p class="price-tier">Paket 04</p>
+        <h3 class="price-name">Full Band</h3>
+        <p class="price-personel">6 Personel</p>
+        <div class="price-divider"></div>
+        <div class="price-duration">
+          <div class="price-duration-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <span class="price-duration-text">Pengalaman **megah &amp; premium**</span>
+        </div>
+        <ul class="price-features">
+          <li>Vokalis, Gitaris &amp; Keyboardist</li>
+          <li>Drummer &amp; Bassist (Full Rhytm)</li>
+          <li>Saxophonist (Sentuhan Mewah)</li>
+          <li>Ideal untuk Gala, Big Wedding &amp; Ballroom</li>
+        </ul>
+        <a href="https://api.whatsapp.com/send?phone=6285864479317&text=Hai!%20Saya%20ingin%20menanyakan%20Paket%20Full%20Band%20Siena%20Entertainment" target="_blank" class="price-cta">Tanya Harga</a>
       </div>
  
     </div>
